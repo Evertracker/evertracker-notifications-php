@@ -40,7 +40,7 @@ abstract class AbstractDispatcher implements NotificationDispatcher
      * @param DispatcherRegistry $registry
      * @param                    $userProvider
      */
-    public function __construct(DispatcherRegistry $registry, $userProvider)
+    public function __construct(DispatcherRegistry $registry, $userProvider = null)
     {
         $this->registry = $registry;
         $this->userProvider = $userProvider;

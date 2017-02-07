@@ -15,10 +15,10 @@ use DateTime;
 use Evalert\Dispatchers\DispatcherRegistry;
 
 /**
- * Class NotificationHandler
+ * Class Notification
  * @package Evalert\Notifications
  */
-class NotificationHandler
+class Notification
 {
     /**
      * @var DispatcherRegistry

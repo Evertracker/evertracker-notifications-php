@@ -12,7 +12,7 @@
 namespace Evalert\Events;
 
 use DateTime;
-use Evalert\Notifications\NotificationHandler;
+use Evalert\Notifications\Notification;
 
 /**
  * Class Event
@@ -21,18 +21,18 @@ use Evalert\Notifications\NotificationHandler;
 class Event
 {
     /**
-     * @var NotificationHandler
+     * @var Notification
      */
-    private $notificationHandler;
+    private $notification;
 
     /**
      * Event constructor.
      *
-     * @param NotificationHandler $notificationHandler
+     * @param Notification $notification
      */
-    public function __construct(NotificationHandler $notificationHandler)
+    public function __construct(Notification $notification)
     {
-        $this->notificationHandler = $notificationHandler;
+        $this->notification = $notification;
     }
 
     /**
@@ -46,11 +46,21 @@ class Event
         $eventId = null;
 
         // Get all entity watchers
-        $watchers = [];
+        $watcherIds = $this->getEntityWatchers($entityId);
 
         // Foreach watcher, generate a notification
-        foreach ($watchers as $watcherId) {
-            $this->notificationHandler->createOrUpdate($entityId, $eventId, $watcherId);
+        foreach ($watcherIds as $watcherId) {
+            $this->notification->createOrUpdate($entityId, $eventId, $watcherId, $timestamp);
         }
+    }
+
+    /**
+     * @param mixed $entityId
+     *
+     * @return array
+     */
+    protected function getEntityWatchers($entityId)
+    {
+        return [];
     }
 }
